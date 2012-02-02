@@ -13,7 +13,7 @@ grails.project.dependency.resolution = {
         grailsPlugins()
         grailsHome()
         grailsCentral()
-		grailsRepo "http://svn.cccs.umn.edu/ncs-grails-plugins"
+		grailsRepo "http://svn.cccs.umn.edu/grails-plugins"
 
         // uncomment the below to enable remote dependency resolution
         // from public Maven repositories
@@ -37,5 +37,7 @@ grails.project.dependency.resolution = {
 		compile ":spring-security-shibboleth-native-sp:1.0.3"
 
 		compile ":spring-security-mock:1.0.1"
+
+		runtime ":umn-web-template:0.2.3"
 	}
 }
