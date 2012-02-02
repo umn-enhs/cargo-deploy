@@ -13,7 +13,6 @@ grails.project.dependency.resolution = {
         grailsPlugins()
         grailsHome()
         grailsCentral()
-		grailsRepo "http://svn.cccs.umn.edu/ncs-grails-plugins"
 
         // uncomment the below to enable remote dependency resolution
         // from public Maven repositories
@@ -27,15 +26,10 @@ grails.project.dependency.resolution = {
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
 
-        // runtime 'mysql:mysql-connector-java:5.1.13'
     }
     plugins {
 		compile ":tomcat:$grailsVersion"
 
-		compile ":spring-security-core:1.2.7.2"
-		compile ":spring-security-ldap:1.0.5.1"
-		compile ":spring-security-shibboleth-native-sp:1.0.3"
-
-		compile ":spring-security-mock:1.0.1"
+		compile ":spring-security-core:1.2.7.1"
 	}
 }
