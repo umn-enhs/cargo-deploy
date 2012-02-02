@@ -34,6 +34,8 @@
 			<g:each var="a" in="${deployedApps}">
 			<p>Server: <strong>${a.url}${a.context}</strong> - 
 				${a.status} -
+				<g:link action="start" params="${ [server: a.server ] }" id="${a.appName}" onclick="return confirm('Are you sure?')">Start</g:link>,
+				<g:link action="stop" params="${ [server: a.server ] }" id="${a.appName}" onclick="return confirm('Are you sure?')">Stop</g:link>,
 				<g:link action="undeploy" params="${ [server: a.server ] }" id="${a.appName}" onclick="return confirm('Are you sure?')">Undeploy</g:link>
 			</p>
 			</g:each>

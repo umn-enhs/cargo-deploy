@@ -46,7 +46,18 @@ class WarFinderService {
 		return webAppsFolder
 	}
 
+	
+	def startWebApp(String context, String serverName) {
+		serviceWebApp(context, serverName, 'start')
+	}
+	def stopWebApp(String context, String serverName) {
+		serviceWebApp(context, serverName, 'stop')
+	}
 	def unDeployWebApp(String context, String serverName) {
+		serviceWebApp(context, serverName, 'undelploy')
+	}
+
+	private def serviceWebApp(String context, String serverName, String action) {
 		Boolean returnStatus = false
 
 		def deployer = getDeployer(serverName)
@@ -59,11 +70,29 @@ class WarFinderService {
 
 			def deployedApps = getDeployedApps(deployer)
 
-			if (deployedApps.find{ it.appName == context && it.status == 'running'}) {
-				println "undeploying app"
-				returnStatus = deployer.undeploy(deployable)
+			def expectedStatus = 'UNKOWN'
+
+			if (action == 'undeploying') {
+				expectedStatus = 'running'
+			} else if (action == 'start') {
+				expectedStatus = 'stopped'
+			} else if (action == 'stop') {
+				expectedStatus = 'running'
+			}
+
+			if (deployedApps.find{ it.appName == context && it.status == expectedStatus}) {
+				if (action == 'undeploy') {
+					log.info "Undeploying ${context} on ${serverName}"
+					returnStatus = deployer.undeploy(deployable)
+				} else if (action == 'start') {
+					log.info "Starting ${context} on ${serverName}"
+					returnStatus = deployer.start(deployable)
+				} else if (action == 'stop') {
+					log.info "Stopping ${context} on ${serverName}"
+					returnStatus = deployer.stop(deployable)
+				}
 			} else {
-				println "app isn't deployed, can't undeploy!"
+				log.info "app isn't ${expectedStatus}, can't ${action}!"
 			}
 		}
 		return returnStatus
@@ -79,11 +108,10 @@ class WarFinderService {
 			def webAppsFolder = getWebAppsFolder()
 
 			def warFilePath = webAppsFolder.absolutePath + '/' +  warFileName
-			println "Packaging ${warFilePath}"
 			def warFile = new WarFile(warFilePath)
 
 			if (warFile && warFile.deployable) {
-				println "Deploying ${warFile} to ${serverName}..."
+				log.info "Deploying ${warFile} to ${serverName}..."
 
 				def deployer = getDeployer(serverName)
 				if (deployer) {
@@ -92,10 +120,10 @@ class WarFinderService {
 					def deployedApps = getDeployedApps(deployer)
 
 					if (deployedApps.find{ it.appName == warFile.context}) {
-						println "redeploying app"
+						log.info "Redeploying ${context} on ${serverName}"
 						returnStatus = deployer.redeploy(deployable)
 					} else {
-						println "deploying app"
+						log.info "Deploying ${context} on ${serverName}"
 						returnStatus = deployer.deploy(deployable)
 					}
 				}
@@ -157,7 +185,7 @@ class WarFinderService {
 						}
 					}
 				} else {
-					println "FAIL, got back: ${result}"
+					log.warn "FAIL, got back: ${result}"
 				}
 			}
 		}

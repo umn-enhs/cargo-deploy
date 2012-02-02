@@ -23,24 +23,35 @@ class AppController {
 	}
 
 	def deploy = {
-
 		def fileName = params.id
 		def serverName = params.server
-
 		def result = warFinderService.deployWebApp(fileName + '.war', serverName)
-
 		flash.message = "Deploy Result: ${result}"
 		redirect(action:"index")
 		return
 	}
 	def undeploy = {
+		def context = params.id
+		def serverName = params.server
+		def result = warFinderService.unDeployWebApp(context, serverName)
+		flash.message = "Undeploy Result: ${result}"
+		redirect(action:"index")
+		return
+	}
+	def start = {
+		def fileName = params.id
+		def serverName = params.server
+		def result = warFinderService.startWebApp(fileName + '.war', serverName)
+		flash.message = "Deploy Result: ${result}"
+		redirect(action:"index")
+		return
+	}
+	def stop = {
 
 		def context = params.id
 		def serverName = params.server
-
-		def result = warFinderService.unDeployWebApp(context, serverName)
-
-		flash.message = "Undeploy Result: ${result}"
+		def result = warFinderService.stopWebApp(context, serverName)
+		flash.message = "Stop Result: ${result}"
 		redirect(action:"index")
 		return
 	}
