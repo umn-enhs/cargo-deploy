@@ -13,7 +13,6 @@ grails.project.dependency.resolution = {
         grailsPlugins()
         grailsHome()
         grailsCentral()
-		grailsRepo "http://svn.cccs.umn.edu/ncs-grails-plugins"
 
         //mavenCentral()
     }

@@ -1,10 +1,5 @@
 // externalized configuration files
 grails.config.locations = [ 
-	"file:/etc/grails/active-directory.groovy",
-	"file:/etc/grails/shibboleth.groovy",
-	"file:/etc/grails/mock-config.groovy",
-	"file:/etc/grails/logging-config.groovy",
-	"file:/etc/grails/mail-config.groovy",
 	"file:/etc/grails/${appName}-config.groovy" ]
 
 grails.project.groupId = 'edu.umn.enhs.staging' // change this to alter the default package name and Maven publishing destination
@@ -44,6 +39,22 @@ grails.logging.jul.usebridge = true
 // packages to include in Spring bean scanning
 grails.spring.bean.packages = []
 
+environments {
+    development { }
+	test { }
+	production {
+		grails.serverURL = 'https://TODO.example.org'
+	}
+}
+
+
 // request parameters to mask when logging exceptions
 grails.exceptionresolver.params.exclude = ['password']
+
+log4j = {
+	error 'org.codehaus.groovy.grails',
+		'org.springframework',
+		'org.hibernate',
+		'net.sf.ehcache.hibernate'
+}
 

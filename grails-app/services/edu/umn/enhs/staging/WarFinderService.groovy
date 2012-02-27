@@ -120,10 +120,10 @@ class WarFinderService {
 					def deployedApps = getDeployedApps(deployer)
 
 					if (deployedApps.find{ it.appName == warFile.context}) {
-						log.info "Redeploying ${context} on ${serverName}"
+						log.info "Redeploying ${warFile.context} on ${serverName}"
 						returnStatus = deployer.redeploy(deployable)
 					} else {
-						log.info "Deploying ${context} on ${serverName}"
+						log.info "Deploying ${warFile.context} on ${serverName}"
 						returnStatus = deployer.deploy(deployable)
 					}
 				}
