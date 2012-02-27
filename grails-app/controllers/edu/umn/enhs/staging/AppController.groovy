@@ -1,5 +1,8 @@
 package edu.umn.enhs.staging
 
+import grails.plugins.springsecurity.Secured
+
+@Secured(['ROLE_NCS_IT'])
 class AppController {
 
 	def warFinderService
