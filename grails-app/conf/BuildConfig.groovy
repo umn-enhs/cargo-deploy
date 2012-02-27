@@ -15,27 +15,20 @@ grails.project.dependency.resolution = {
         grailsCentral()
 		grailsRepo "http://svn.cccs.umn.edu/ncs-grails-plugins"
 
-        // uncomment the below to enable remote dependency resolution
-        // from public Maven repositories
-        //mavenLocal()
         //mavenCentral()
-        //mavenRepo "http://snapshots.repository.codehaus.org"
-        //mavenRepo "http://repository.codehaus.org"
-        //mavenRepo "http://download.java.net/maven/2/"
-        //mavenRepo "http://repository.jboss.com/maven2/"
     }
     dependencies {
-        // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
-
-        // runtime 'mysql:mysql-connector-java:5.1.13'
+		// Needed to get ant libraries in WAR file
+		compile "org.apache.ant:ant:1.7.1"
+		compile "org.apache.ant:ant-launcher:1.7.1"
     }
     plugins {
-		compile ":tomcat:$grailsVersion"
+		compile ":tomcat:${grailsVersion}"
 
 		compile ":spring-security-core:1.2.7.2"
 		compile ":spring-security-ldap:1.0.5.1"
 		compile ":spring-security-shibboleth-native-sp:1.0.3"
-
 		compile ":spring-security-mock:1.0.1"
+		compile ":ncs-web-template:0.2"
 	}
 }
