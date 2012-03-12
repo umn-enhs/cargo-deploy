@@ -11,7 +11,7 @@
 			<h2>War Files</h2>
 			<g:each var="w" in="${warFiles}">
 				<hr/>
-				<h3>${w} - ${w.applicationName.replaceFirst('/','')} </h3>
+				<h3>${w} - ${w.applicationName?.replaceFirst('/','')} </h3>
 				<h4>Test this app @ <a href="${g.createLink(controller:'app', absolute:true)}${w.context}"><g:createLink controller="app" absolute="true" />${w.context}</a></h3>
 				<p>Plugins: <strong style="font-size: 0.7em;">${w.plugins?.join(', ')}</strong></p>
 				<g:if test="${w.deployedApp}">

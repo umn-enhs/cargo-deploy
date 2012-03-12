@@ -13,22 +13,20 @@ grails.project.dependency.resolution = {
         grailsPlugins()
         grailsHome()
         grailsCentral()
-		grailsRepo "http://svn.cccs.umn.edu/ncs-grails-plugins"
-
-        //mavenCentral()
+        mavenRepo "http://artifact.ncs.umn.edu/plugins-release"
     }
     dependencies {
 		// Needed to get ant libraries in WAR file
 		compile "org.apache.ant:ant:1.7.1"
 		compile "org.apache.ant:ant-launcher:1.7.1"
+        runtime 'mysql:mysql-connector-java:5.1.18'
     }
     plugins {
 		compile ":tomcat:${grailsVersion}"
 
-		compile ":spring-security-core:1.2.7.2"
-		compile ":spring-security-ldap:1.0.5.1"
+		compile ":spring-security-core:1.2.7.3"
+		compile ":spring-security-ldap:1.0.6"
 		compile ":spring-security-shibboleth-native-sp:1.0.3"
-		compile ":spring-security-mock:1.0.1"
 		compile ":ncs-web-template:0.2"
 	}
 }
