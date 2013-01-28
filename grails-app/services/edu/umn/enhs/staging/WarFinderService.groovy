@@ -110,6 +110,9 @@ class WarFinderService {
 		def allApps = new HashSet<DeployedApp>()
 
 		config.each{ server, settings ->
+
+			log.debug "::::ngp debug; getDeployer(server) server:: ${server}"
+
 			def deployer = getDeployer(server)
 			allApps.addAll(getDeployedApps(deployer))
 		}
@@ -179,6 +182,9 @@ class WarFinderService {
 		def server = config[configName]
 
 
+		log.debug ":::: ngp debug; getDeployer(String configName)   configName:: ${configName}"
+		log.debug ":::: ngp debug; getDeployer(String configName)   server?.url :: ${server?.url}"
+
 		if (server?.type == 'tomcat' && server?.version == 6) {
 			def serverURL = new URL(server.url + '/manager').toExternalForm()
 
@@ -196,6 +202,10 @@ class WarFinderService {
 			tomcatConfiguration.setProperty(RemotePropertySet.PASSWORD, server.password)
 			tomcatConfiguration.setProperty(RemotePropertySet.URI, serverURL)
 			//tomcatConfiguration.setProperty(TomcatPropertySet.MANAGER_URL, serverURL)
+
+			log.debug ":::: ngp debug; getDeployer(String configName)   username:: ${server?.username}"
+			log.debug ":::: ngp debug; getDeployer(String configName)   password:: ${server?.password}"
+			log.debug ":::: ngp debug; getDeployer(String configName)   serverURL:: ${serverURL}"
 
 			def tomcatContainer = new Tomcat6xRemoteContainer(tomcatConfiguration)
 
