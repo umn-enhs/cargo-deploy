@@ -107,6 +107,9 @@ class WarFinderService {
 	def getAllDeployedApps() {
 
 		def config = getConfig()
+
+		log.debug ":::: ngp debug; getConfig() :: ${config}"
+
 		def allApps = new HashSet<DeployedApp>()
 
 		config.each{ server, settings ->
